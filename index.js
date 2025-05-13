@@ -23,12 +23,16 @@ app.use((req, res, next) => {
   // Allow requests from our frontend
   const allowedOrigins = [
     'https://astonishing-smakager-d8c61d.netlify.app',
+    'https://remarkable-fairy-b57541.netlify.app',
     'http://localhost:3000'
   ];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    // For development and testing, allow all origins
+    res.setHeader('Access-Control-Allow-Origin', '*');
   }
 
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
