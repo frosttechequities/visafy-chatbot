@@ -18,6 +18,30 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Add CORS middleware
+app.use((req, res, next) => {
+  // Allow requests from our frontend
+  const allowedOrigins = [
+    'https://astonishing-smakager-d8c61d.netlify.app',
+    'http://localhost:3000'
+  ];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  next();
+});
+
 // Define API routes
 app.post("/api/scrape", async (req, res) => {
   try {
@@ -41,7 +65,20 @@ app.post("/api/train-local", async (req, res) => {
   }
 });
 
+// Original endpoint for backward compatibility
 app.post("/api/ask", async (req, res) => {
+  try {
+    const { question: userQuestion } = req.body;
+    const answer = await question(userQuestion);
+    res.json({ success: true, answer });
+  } catch (error) {
+    console.error("Error asking question:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// New endpoint for the ChatbotWidget component
+app.post("/ask", async (req, res) => {
   try {
     const { question: userQuestion } = req.body;
     const answer = await question(userQuestion);
