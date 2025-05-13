@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visafy Q&A Chatbot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Visafy Q&A Chatbot</h1>
+      <p>Ask questions about immigration programs and requirements</p>
+    </header>
+
+    <div class="website-form">
+      <h2>Train on a Website</h2>
+      <div class="input-group">
+        <input type="text" id="website-url" placeholder="Enter website URL (e.g., https://visafy.com)">
+        <button id="scrape-button">Train</button>
+      </div>
+      <div id="scrape-status" class="status"></div>
+    </div>
+
+    <div class="website-form">
+      <h2>Train on Local Files</h2>
+      <div class="input-group">
+        <input type="text" id="local-path" placeholder="Enter local directory path (e.g., C:/Users/USER/Documents/Migratio/project-plan)">
+        <button id="train-local-button">Train</button>
+      </div>
+      <div id="train-local-status" class="status"></div>
+    </div>
+
+    <div class="chat-container">
+      <h2>Ask Questions</h2>
+      <div id="chat-messages" class="chat-messages"></div>
+      <div class="input-group">
+        <input type="text" id="question-input" placeholder="Ask a question about immigration...">
+        <button id="ask-button">Ask</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
